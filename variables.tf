@@ -9,7 +9,7 @@ variable "cluster_security_group_id" {
 
 variable "cluster_version" {
   description = "Kubernetes version to use for the EKS cluster."
-  default     = "1.10"
+  default     = "1.11"
 }
 
 variable "config_output_path" {
@@ -33,16 +33,34 @@ variable "map_accounts" {
   default     = []
 }
 
+variable "map_accounts_count" {
+  description = "The count of accounts in the map_accounts list."
+  type        = "string"
+  default     = 0
+}
+
 variable "map_roles" {
   description = "Additional IAM roles to add to the aws-auth configmap. See examples/eks_test_fixture/variables.tf for example format."
   type        = "list"
   default     = []
 }
 
+variable "map_roles_count" {
+  description = "The count of roles in the map_roles list."
+  type        = "string"
+  default     = 0
+}
+
 variable "map_users" {
   description = "Additional IAM users to add to the aws-auth configmap. See examples/eks_test_fixture/variables.tf for example format."
   type        = "list"
   default     = []
+}
+
+variable "map_users_count" {
+  description = "The count of roles in the map_users list."
+  type        = "string"
+  default     = 0
 }
 
 variable "subnets" {
@@ -141,7 +159,17 @@ variable "cluster_delete_timeout" {
 }
 
 variable "local_exec_interpreter" {
-  description = "Command to run for local-exec resources. Must be a shell-style interpreter. If you are on Windows Git Bash is a good choice. Defaults to [\"/bin/sh\", \"-c\"]"
+  description = "Command to run for local-exec resources. Must be a shell-style interpreter. If you are on Windows Git Bash is a good choice."
   type        = "list"
   default     = ["/bin/sh", "-c"]
+}
+
+variable "cluster_create_security_group" {
+  description = "Whether to create a security group for the cluster or attach the cluster to `cluster_security_group_id`."
+  default     = true
+}
+
+variable "worker_create_security_group" {
+  description = "Whether to create a security group for the workers or attach the workers to `worker_security_group_id`."
+  default     = true
 }
