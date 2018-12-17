@@ -1,4 +1,5 @@
 data "aws_region" "current" {}
+data "aws_availability_zones" "available" {}
 
 data "aws_iam_policy_document" "workers_assume_role_policy" {
   statement {
